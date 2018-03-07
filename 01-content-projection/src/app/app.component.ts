@@ -6,13 +6,19 @@ import { User } from './auth-form/auth-form.interface'
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'app';
+
+  rememberMe: boolean = false;
+
+  rememberUser(remember: boolean) {
+    this.rememberMe = remember;
+    console.log('this.rememberMe =', this.rememberMe);
+  }
 
   createUser(user: User) {
     console.log('Create account', user);
   }
 
   loginUser(user: User) {
-    console.log('Login', user);
+    console.log('Login', user, this.rememberMe);
   }
 }
