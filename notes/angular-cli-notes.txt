@@ -1,0 +1,23 @@
+ng new PROJECT-NAME
+cd PROJECT-NAME
+ng serve
+
+ng generate component my-new-component
+ng g component my-new-component # using the alias
+
+# components support relative path generation
+# if in the directory src/app/feature/ and you run
+ng g component new-cmp
+# your component will be generated in src/app/feature/new-cmp
+# but if you were to run
+ng g component ./newer-cmp
+# your component will be generated in src/app/newer-cmp
+# if in the directory src/app you can also run
+ng g component feature/new-cmp
+# and your component will be generated in src/app/feature/new-cmp
+
+
+
+ng g module new-module to create a new module
+call ng g component new-module/new-component
+This should add the new component, directive or pipe reference to the new-module you've created.
