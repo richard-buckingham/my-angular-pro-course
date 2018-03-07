@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, Output, EventEmitter, ContentChildren, AfterContentInit, QueryList } from '@angular/core';
 
 import { User } from '../auth-form.interface';
 import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
@@ -12,7 +12,7 @@ export class AuthFormComponent implements AfterContentInit{
   public showMessage: boolean = false;
 
   // configure a content child query
-  @ContentChild(AuthRememberComponent) remember: AuthRememberComponent;
+  @ContentChildren(AuthRememberComponent) remember: QueryList<AuthRememberComponent>;
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
@@ -22,9 +22,11 @@ export class AuthFormComponent implements AfterContentInit{
 
   ngAfterContentInit() {
     if (this.remember) {
-      // subscribe to the output event that is raised by AuthRememberComponent
+      // subscribe to the output event that is raised by EACH AuthRememberComponent
       // the the check box is checked
-      this.remember.checked.subscribe((checked: boolean) => this.showMessage = checked)
+      this.remember.forEach((item) => {
+        item.checked.subscribe((checked: boolean) => this.showMessage = checked)
+      })
     }
   }
 
