@@ -1,6 +1,6 @@
 import {
-  Component, Output, EventEmitter, ViewChildren, AfterViewInit,
-  ContentChildren, AfterContentInit, QueryList, ChangeDetectorRef
+  Component, Output, EventEmitter,ViewChild, ViewChildren, AfterViewInit,
+  ContentChildren, AfterContentInit, QueryList, ChangeDetectorRef, ElementRef
 } from '@angular/core';
 
 import { User } from '../auth-form.interface';
@@ -14,6 +14,8 @@ import { AuthMessageComponent } from '../auth-message/auth-message.component';
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
 
   public showMessage: boolean = false;
+
+  @ViewChild('email') email: ElementRef;
 
   // configure a viewchild query
   @ViewChildren(AuthMessageComponent) messages: QueryList<AuthMessageComponent>;
@@ -42,6 +44,7 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterContentInit() {
+    console.log(this.email);
     if (this.remember) {
       // subscribe to the output event that is raised by EACH AuthRememberComponent
       // the the check box is checked
