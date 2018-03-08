@@ -1,5 +1,7 @@
-import { Component, Output, EventEmitter, ViewChild, AfterViewInit, 
-        ContentChildren, AfterContentInit, QueryList } from '@angular/core';
+import {
+  Component, Output, EventEmitter, ViewChildren, AfterViewInit,
+  ContentChildren, AfterContentInit, QueryList, ChangeDetectorRef
+} from '@angular/core';
 
 import { User } from '../auth-form.interface';
 import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
@@ -14,27 +16,32 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   public showMessage: boolean = false;
 
   // configure a viewchild query
-  @ViewChild(AuthMessageComponent) message: AuthMessageComponent; 
+  @ViewChildren(AuthMessageComponent) messages: QueryList<AuthMessageComponent>;
 
   // configure a content child query
   @ContentChildren(AuthRememberComponent) remember: QueryList<AuthRememberComponent>;
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
+  constructor(private cd: ChangeDetectorRef) { }
+
   onSubmit(value: User) {
     this.submitted.emit(value);
   }
 
   ngAfterViewInit() {
-    //  this will cause an error to be thrown....
-    //  this.message.days = 30;
+    // WE ARE MUTATING DATA AFTER THE VIEW HAS BEEN RENDERED.
+    // THIS IS NOT RECOMMENDED PRACTICE.
+    if (this.messages) {
+      this.messages.forEach(message => {
+        message.days = 30;
+      })
+      // tell the change detector that changes have been made after the view has been rendered
+      this.cd.detectChanges();
+    }
   }
 
   ngAfterContentInit() {
-    // change the data before the view is initialised...
-    if (this.message) {
-      this.message.days = 30;
-    }
     if (this.remember) {
       // subscribe to the output event that is raised by EACH AuthRememberComponent
       // the the check box is checked
