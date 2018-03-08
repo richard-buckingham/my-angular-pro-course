@@ -10,11 +10,11 @@
       <input type="password" name="password" ngModel>
     </label>
     <ng-content select="auth-remember"></ng-content>
-      <!-- Show this message when the check box is selected 
-            in the projected auth-remember component -->
-      <div *ngIf="showMessage">
-        You will be logged in for 30 days...
-      </div>
+
+    <auth-message 
+      [style.display]="showMessage ? 'inherit' : 'none' ">
+    </auth-message>
     <ng-content select="button"></ng-content>
+
   </form>
 </div>
