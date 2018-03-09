@@ -9,6 +9,7 @@ import { AuthMessageComponent } from '../auth-message/auth-message.component';
 
 @Component({
   selector: 'app-auth-form',
+  styles: ['.email { border-color: #9f72e6;} '],
   templateUrl: './auth-form.component.html'
 })
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
@@ -32,6 +33,10 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.email.nativeElement.setAttribute('placeholder', 'Enter your email address...');
+    this.email.nativeElement.classList.add('email');
+    this.email.nativeElement.focus();
+    console.log(this.email.nativeElement);
     // WE ARE MUTATING DATA AFTER THE VIEW HAS BEEN RENDERED.
     // THIS IS NOT RECOMMENDED PRACTICE.
     if (this.messages) {
@@ -44,7 +49,6 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterContentInit() {
-    console.log(this.email);
     if (this.remember) {
       // subscribe to the output event that is raised by EACH AuthRememberComponent
       // the the check box is checked

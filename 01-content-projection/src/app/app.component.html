@@ -1,11 +1,4 @@
 <div>
-  <app-auth-form (submitted)="createUser($event)">
-    <h3>Create account</h3>
-    <button type="submit">
-      Join Us
-    </button>
-  </app-auth-form>
-
   <app-auth-form (submitted)="loginUser($event)">
     <!-- content children start here -->
     <h3>Login</h3>
@@ -15,5 +8,4 @@
     </button>
     <!-- content children end here -->
   </app-auth-form>
-  
 </div>
