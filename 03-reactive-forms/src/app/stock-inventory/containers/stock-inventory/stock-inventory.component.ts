@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'stock-inventory',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './stock-inventory.component.html'
 })
 export class StockInventoryComponent {
-  
+  form = new FormGroup({
+    store: new FormGroup({
+      branch: new FormControl(''),
+      code: new FormControl('')
+    })
+  });
+
+  onSubmit(): void {
+    console.log('Submit:', this.form.value);
+  }
 }
