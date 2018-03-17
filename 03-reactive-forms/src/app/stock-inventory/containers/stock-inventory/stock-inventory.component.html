@@ -2,22 +2,29 @@
     
     <Form [formGroup]="form" (ngSubmit)="onSubmit()">
 
+        <h6>Please enter branch information</h6>
         <stock-branch 
             [parent]="form">
         </stock-branch>
 
+        <h6>Please select your stock</h6>
         <stock-selector 
             [parent]="form"
             [products]="products">
         </stock-selector>
 
+        <h6>Selected Stock</h6>
         <stock-products 
             [parent]="form">
         </stock-products>
 
+        <br />
         <div class="stock-inventory__buttons">
-            <button type="submit"
-                    [disabled]="form.invalid">Order stock</button>
+            <button 
+                type="submit"
+                [disabled]="form.invalid">
+                Order stock
+            </button>
         </div>
 
         <pre>{{ form.value | json}}</pre>
