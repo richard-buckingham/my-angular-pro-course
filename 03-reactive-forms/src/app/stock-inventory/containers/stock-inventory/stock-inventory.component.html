@@ -10,7 +10,8 @@
         <h6>Please select your stock</h6>
         <stock-selector 
             [parent]="form"
-            [products]="products">
+            [products]="products"
+            (added)="addStock($event)">
         </stock-selector>
 
         <h6>Selected Stock</h6>
