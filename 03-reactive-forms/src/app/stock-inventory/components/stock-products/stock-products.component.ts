@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 @Component({
@@ -8,10 +8,15 @@ import { FormGroup, FormArray } from '@angular/forms';
 })
 export class StockProductsComponent {
   @Input() parent: FormGroup;
+  @Output() removed = new EventEmitter<any>();
 
   // Get the stocks from the parent component
   get stocks() {
     console.log('in get Stocks...', (this.parent.get('stock') as FormArray).controls);
     return (this.parent.get('stock') as FormArray).controls;
+  }
+
+  onRemove(group, index): void {
+    this.removed.emit({group, index});
   }
 }

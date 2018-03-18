@@ -34,18 +34,24 @@ export class StockInventoryComponent {
   createStock(stock) {
     return new FormGroup({
       product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
-      quantity: new FormControl(stock.quantity || 0)
+      quantity: new FormControl(stock.quantity || 10)
     });
   }
 
   onSubmit(): void {
-    console.log('Submit:', this.form.value);
+    //console.log('Submit:', this.form.value);
   }
 
   addStock(stockItem):any {
-    console.log('stockItem:', stockItem);
+    //console.log('stockItem:', stockItem);
     const control = this.form.get('stock') as FormArray;
     control.push(this.createStock(stockItem));
+  }
 
+  removeStock({group, index} : { group: FormGroup, index: number}) {
+    //console.log('group:', group);
+    //console.log('index:', index);
+    const control = this.form.get('stock') as FormArray;
+    control.removeAt(index);
   }
 }
